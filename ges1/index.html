@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Great Eastern Sun, Part 1 — Reading Guide</title>
+<style>
+:root {
+  --bg: #faf7f2; --surface: #ffffff; --ink: #1f1d1a; --muted: #5c5650;
+  --line: #e2dbd0; --accent: #b4540a; --accent-ink: #ffffff;
+  --watch-bg: #fff1dc; --watch-line: #e3a14a;
+  --try-bg: #eaf3ec; --try-line: #6aa57a;
+  --skip-bg: #f1efec; --quote-bg: #f6f0e6; --done: #3d7a4f;
+  --fs: 18px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171513; --surface: #211e1b; --ink: #ece6dd; --muted: #a9a097;
+    --line: #3a352f; --accent: #f0a050; --accent-ink: #1a1208;
+    --watch-bg: #3a2a14; --watch-line: #b77a2c; --try-bg: #1d2f22; --try-line: #4f8a5e;
+    --skip-bg: #2a2723; --quote-bg: #2a251f; --done: #7cc48f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171513; --surface: #211e1b; --ink: #ece6dd; --muted: #a9a097;
+  --line: #3a352f; --accent: #f0a050; --accent-ink: #1a1208;
+  --watch-bg: #3a2a14; --watch-line: #b77a2c; --try-bg: #1d2f22; --try-line: #4f8a5e;
+  --skip-bg: #2a2723; --quote-bg: #2a251f; --done: #7cc48f;
+}
+* { box-sizing: border-box; }
+html { font-size: var(--fs); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65; letter-spacing: .005em;
+}
+main { max-width: 46rem; margin: 0 auto; padding: 0 16px 5rem; }
+h1 { font-size: 1.7rem; line-height: 1.25; margin: 1.5rem 0 .5rem; }
+h2 { font-size: 1.3rem; line-height: 1.3; margin: 0 0 .75rem; }
+h3 { font-size: 1.1rem; margin: 2rem 0 .5rem; }
+p, li { max-width: 68ch; }
+ul, ol { padding-left: 1.3rem; }
+a { color: var(--accent); }
+strong { font-weight: 650; }
+code { font-size: .9em; background: var(--quote-bg); padding: .05em .3em; border-radius: 4px; }
+.skiplink { position: absolute; left: -999px; }
+.skiplink:focus { left: 16px; top: 8px; background: var(--surface); padding: .5rem; z-index: 10; }
+
+/* Toolbar */
+.bar {
+  position: sticky; top: 0; z-index: 5; background: var(--bg);
+  border-bottom: 1px solid var(--line); padding: .5rem 0;
+}
+.bar .inner { max-width: 46rem; margin: 0 auto; padding: 0 16px; display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; }
+.progress { flex: 1 1 12rem; min-width: 10rem; }
+.progress .track { height: .5rem; background: var(--line); border-radius: 99px; overflow: hidden; }
+.progress .fill { height: 100%; width: 0; background: var(--done); transition: width .3s; }
+.progress .txt { font-size: .8rem; color: var(--muted); }
+button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; padding: .35rem .7rem; cursor: pointer; min-height: 2.25rem;
+}
+button:hover { border-color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Cards and parts */
+.lead { color: var(--muted); }
+.card, .part { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; margin: 1rem 0; }
+.part h2 { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; }
+.pcount { font-size: .8rem; font-weight: 500; color: var(--muted); }
+.pcount.full { color: var(--done); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+/* Collapsible sections */
+details.sec { border-top: 1px solid var(--line); }
+details.sec > summary {
+  list-style: none; cursor: pointer; padding: .7rem .2rem; display: flex; gap: .6rem; align-items: baseline;
+  font-weight: 600;
+}
+details.sec > summary::-webkit-details-marker { display: none; }
+details.sec > summary::before { content: "▸"; color: var(--muted); flex: none; transition: transform .15s; }
+details.sec[open] > summary::before { transform: rotate(90deg); }
+.tick { flex: none; width: 1.1rem; height: 1.1rem; border: 2px solid var(--line); border-radius: 50%; align-self: center; }
+details.sec.read .tick { background: var(--done); border-color: var(--done); }
+details.sec.read .tick::after { content: "✓"; color: var(--surface); font-size: .75rem; display: block; text-align: center; line-height: .95rem; }
+details.sec.read > summary .label { color: var(--muted); }
+.ts {
+  font-variant-numeric: tabular-nums; font-size: .8rem; font-weight: 600; white-space: nowrap;
+  background: var(--quote-bg); border: 1px solid var(--line); border-radius: 6px; padding: .05rem .4rem;
+}
+.body { padding: 0 .2rem 1rem 1.6rem; }
+.mark { margin-top: .5rem; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+details.sec.read .mark { background: var(--surface); color: var(--ink); border-color: var(--line); font-weight: 400; }
+
+blockquote {
+  margin: 1rem 0; padding: .75rem 1rem; background: var(--quote-bg);
+  border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0;
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+}
+blockquote p { margin: .3rem 0; }
+blockquote p.src { font-family: system-ui, sans-serif; font-size: .8rem; color: var(--muted); }
+p.cite, li .cite { font-size: .85rem; color: var(--muted); }
+.callout { padding: .6rem .8rem; border-radius: 8px; border-left: 4px solid; }
+.callout.watch { background: var(--watch-bg); border-color: var(--watch-line); }
+.callout.try { background: var(--try-bg); border-color: var(--try-line); }
+.callout.skip { background: var(--skip-bg); border-color: var(--line); color: var(--muted); }
+#companion > details > summary { font-size: 1.15rem; font-weight: 700; cursor: pointer; padding: .4rem 0; }
+footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print {
+  .bar, .mark, .skiplink { display: none !important; }
+  details > *:not(summary) { display: block !important; }
+  .card, .part { border: none; padding: 0; }
+}
+</style>
+</head>
+<body>
+<a class="skiplink" href="#reading">Skip to the reading</a>
+<div class="bar" role="region" aria-label="Reading tools">
+  <div class="inner">
+    <div class="progress" aria-live="polite">
+      <div class="track"><div class="fill"></div></div>
+      <span class="txt">0 of 32 sections read</span>
+    </div>
+    <button type="button" id="expand">Open all</button>
+    <button type="button" id="collapse">Close all</button>
+    <button type="button" id="smaller" aria-label="Smaller text">A−</button>
+    <button type="button" id="bigger" aria-label="Larger text">A+</button>
+    <button type="button" id="theme" aria-label="Switch light or dark">◐ Theme</button>
+  </div>
+</div>
+<main>
+<h1>Great Eastern Sun, Part 1 — Reading Guide</h1>
+<div class="lead"><p><strong>Recording:</strong> the class video (10 Oct 2026, 3 h 07 min)<br />
+<strong>Reading time:</strong> about 30 minutes, in 4 parts of 6–10 minutes each. Each part stands on its own, so you can stop after any one and come back later.</p></div>
+<p class="lead">Tap a section to open it. When you finish one, press <strong>Mark as read</strong>, and the next section will open. Your progress is saved in this browser only.</p>
+<section class="card" aria-labelledby="i0"><h2 id="i0">The 2-minute version</h2><ul>
+<li><strong>Not a ladder.</strong> You don't "graduate" from earlier training. Meditation stays the thread, and the emphasis widens gradually from working on ourselves toward the world and the idea of enlightened society.
+  📖 SP ch.1 "Creating an Enlightened Society"; SP ch.2 "Discovering Basic Goodness"</li>
+<li><strong>The main text is a poem about the fearful mind.</strong> You don't get rid of fear. You put it "in the cradle of loving-kindness", nourish it with the "milk of eternal doubtlessness", cool and fan it, and lead it to the "self-existing playground" of experience.
+  📖 SP ch.10 "Letting Go"</li>
+<li><strong>The "archery range of the warriors":</strong> act without clinging to the result. Every action brings a reply from the world, and when the reply surprises you, your assumptions crack open and reality "opens up."
+  📖 SP ch.10 "Letting Go"</li>
+<li><strong>A warrior is simply a brave person.</strong> That includes the bravery of being gentle and of looking at your own mind.
+  📖 GES Prologue ("A warrior, or pawo in Tibetan, is a brave person")</li>
+</ul>
+<p><strong>This week:</strong> in each sitting, notice which approach you're using and how it affects you.</p></section><section class="card" aria-labelledby="i1"><h2 id="i1">What actually needs watching</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>Time</th>
+<th>Length</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🎥 <strong>Watch</strong></td>
+<td><strong>1:06:52 – 1:11:00</strong></td>
+<td>4 min</td>
+<td>Guided movement. Follow along with the recording.</td>
+</tr>
+<tr>
+<td>🎧 Nice to hear</td>
+<td>1:44:00 – 1:45:03</td>
+<td>1 min</td>
+<td>The teacher reads the poem aloud. The text is in Part 3 if you'd rather read it.</td>
+</tr>
+<tr>
+<td>🎧 Optional, audio only</td>
+<td>50:16 – 1:06:30</td>
+<td>16 min</td>
+<td>Practice along with the guided sit.</td>
+</tr>
+<tr>
+<td>🎧 Optional, audio only</td>
+<td>1:11:47 – 1:22:20</td>
+<td>10 min</td>
+<td>The guided sit continues.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total you actually need to watch: 4 minutes.</strong> Everything else is covered below.</p>
+<p><strong>Safe to skip entirely:</strong>
+- 0:00–11:36 (setup and introductions)
+- 44:03–46:50 (stretch break)
+- 1:25:09–1:36:53 (logistics and break)
+- 1:42:16–1:43:59 (technical setup)
+- 2:30:22–2:31:35 (housekeeping)
+- 2:55:29 to the end (closing and admin)</p></section><section class="card" aria-labelledby="i2"><h2 id="i2">How this is laid out</h2><ul>
+<li><code>[time]</code> labels match the class recording, so you can jump straight to any part.</li>
+<li><strong>Bold</strong> marks a key term the first time it appears.</li>
+<li><strong>Try this:</strong> lines are small, optional practices or reflections.</li>
+<li>Indented quotes are Chögyam Trungpa's own words, copied exactly from <em>Great Eastern Sun</em> (<strong>GES</strong>) or <em>Shambhala: The Sacred Path of the Warrior</em> (<strong>SP</strong>).</li>
+<li>This guide covers only what can also be found in Trungpa Rinpoche's published books. For anything else, go to the recording and your teacher.</li>
+<li>The notes were made from a machine transcript, so a few details may be slightly off.</li>
+</ul></section>
+<div id="reading">
+<section class="part" aria-labelledby="part1">
+<h2 id="part1">Part 1 — Not a ladder: stepping into the sacred path (00:08–46:50) · about 6 min read <span class="pcount" data-part="p1"></span></h2>
+<p class="callout skip">⏭️ <strong>Skip [00:08–11:36]:</strong> Recording check, bow, and round-the-room introductions. Nothing taught.</p><details class="sec" data-id="p1-11:40">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">11:40</span> Why this isn't a "graduate program"</span></summary>
+<div class="body"><ul>
+<li>The teacher is trying not to say "level." It has been in her vocabulary for 40 years, but she no longer thinks of this as a ladder.</li>
+<li>She is also trying not to say "graduate program." That phrase suggests you have finished something and are moving on to higher study. That is academic language, and it does not fit here.</li>
+<li>What carries on from the earlier warriorship training is <strong>meditation</strong>, the key to everything that follows. You keep honing those skills.</li>
+</ul>
+<p><strong>The inner and outer words.</strong> The teacher looked at the title of the book: <em>Shambhala: The Sacred Path of the Warrior</em>.
+- "Shambhala warrior" are the outer words. That is what the early warriorship training introduces.
+- "The sacred path" are the inner words.
+- So this transition is a move to a more inner level of the Shambhala teachings as a whole. It is not a personal inner level.</p>
+<blockquote>
+<p>The first volume was like a guidebook to Shambhala or a road map of the warrior’s path. Great Eastern Sun is about transmission and about embodying and manifesting.</p><p class="src">— <em>GES front matter (Preface)</em> ¶367</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES front matter (Preface); GES Prologue; GES ch.2 "Working with Early Morning Depression" (sitting practice as the main vehicle)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-16:46">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">16:46</span> What the warrior's outlook is</span></summary>
+<div class="body"><ul>
+<li>The sacred path topics are Trungpa Rinpoche's teachings, many of them given at major seminars.</li>
+<li>The early warriorship training introduces the warrior as someone who shows <strong>gentleness, fearlessness and intelligence</strong>.</li>
+<li>The sacred path gives the warrior's <strong>outlook</strong> (how the warrior sees things) and how that outlook shows up in the world.</li>
+<li>The Great Eastern Sun is an introduction to that way of seeing. It is a vision with some inner depth to it.</li>
+</ul>
+<blockquote>
+<p>When we talk about becoming a warrior, we are not talking about conducting warfare, but we’re talking about manifesting fearlessness and gentleness that can save the world.</p><p class="src">— <em>GES ch.18 "A Question of Heart"</em> ¶623</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES ch.18 "A Question of Heart"; SP ch.21 "The Shambhala Lineage" (intelligence binding gentleness and fearlessness); GES Epilogue (source of the seminar material)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-20:07">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">20:07</span> The Letter of the Black Ashe: arrogance is not part of the warrior's view</span></summary>
+<div class="body"><ul>
+<li>There is a different way of thinking from our conventional one. It shows up in a Shambhala text called <strong>The Letter of the Black Ashe</strong>, parts of which are quoted in <em>Shambhala: The Sacred Path of the Warrior</em>.</li>
+<li>Its statements are flat: the warrior always does this, the warrior never does that.</li>
+<li>The teacher's first reaction was "okay, count me out." Examples: the warrior never enters the lower realms, because the warrior rests in trust and modesty. Warriors are never bloated with the poison of arrogance.</li>
+<li>Her point is that these are <strong>not moralistic</strong>. She is not claiming she has never been arrogant. The claim is that arrogance is not part of the warrior's perspective. If I am arrogant, I am simply not being a warrior in that moment.</li>
+<li>It took her a while to "grok" this (she jokes about dating herself with the word, from <em>Stranger in a Strange Land</em>). We gradually learn another way of looking.</li>
+</ul>
+<blockquote>
+<p>Humility, very simply, is the absence of arrogance.</p><p class="src">— <em>GES ch.5 "Discipline in the Four Seasons"</em> ¶451</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.20 "Authentic Presence"; GES ch.5 "Discipline in the Four Seasons"; Collected Works Vol. 8 (names the Letter of the Black Ashe as a Shambhala terma text)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-22:33">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">22:33</span> From working on ourselves to a bigger view</span></summary>
+<div class="body"><ul>
+<li>So far, the teacher guesses, meditation has been about us: saving ourselves, de-stressing, dealing with our state of mind.</li>
+<li>The sacred path shifts to a more <strong>universal perspective</strong>: who we are, what the world is, and ultimately the whole world and the idea of an <strong>enlightened society</strong>.</li>
+<li>She compares it to the bodhisattva aim of benefiting all beings and leaving no one behind. That can sound daunting ("How am I supposed to save all sentient beings? I don't even know them all").</li>
+<li>Her answer is that the point is that it is <strong>broadening</strong>. It takes us beyond "me, me, me and how I'm feeling." She calls it the <strong>great-grandparent perspective</strong>: thinking of those who come long after us.</li>
+<li>The shift is not like flipping a switch. It is a gradual process of accessing the warrior qualities we already have. Meditation is still the key, but the motivation is a little different.</li>
+</ul>
+<blockquote>
+<p>If we don’t help, nobody will. It is our turn to help the world.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.1 "Creating an Enlightened Society"; GES ch.4 "The Cosmic Sneeze"; GES ch.9 "How to Cultivate the Great Eastern Sun"; GES ch.16 "Helping Others"</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-25:40">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">25:40</span> Your own practice</span></summary>
+<div class="body"><ul>
+<li>The teachers hope you have a personal practice, without making it feel like a test.</li>
+<li>How long, what time of day and how often are personal. That you practice is what matters.</li>
+<li>Fitting practice into the day takes experiment: morning sittings may keep getting crowded by the day's tasks, and a different time may work better. You find your own way.</li>
+<li>When time is really short, ten or fifteen minutes is fine.</li>
+</ul>
+<p class="cite">📖 <strong>In the books:</strong> <em>Mindfulness in Action</em> (Trungpa: "If you can only set aside ten or fifteen minutes a day to sit, start with that"); GES ch.2 "Working with Early Morning Depression"</p>
+<p class="callout try"><strong>Try this:</strong> If you have no regular time yet, try a different time of day for a week and see when the day's to-do list stops interrupting you.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-28:51">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">28:51</span> The five parts of the early training as a toolbox</span></summary>
+<div class="body"><p>The teacher is not fond of the "toolbox" image, but it captures that each part has a use. She wants you to be conscious of which technique you're using. Her comments on a few of them:</p>
+<ul>
+<li><strong>Meeting yourself honestly:</strong> a kind way of asking "where am I really at?" When busy or stressed we lose track of our state of mind. At the least this lets you be clear about what's going on, rather than "faking it till you make it."</li>
+<li><strong>Meeting the world accurately:</strong> noticing your environment as it is. If you lay your own trip on the world, you're just painting it another color. It's not a ladder, so it doesn't matter where you are.</li>
+<li><strong>Noticing reactions:</strong> allowing space and noticing what comes up. Challenging at first, but it gives a little more space in the mind and some choice in action. You notice irritation and can say, "Irritating. Big deal, but no question, irritating," instead of letting it slide into anger.</li>
+<li><strong>Beyond technique:</strong> just the ability to let yourself simply be. It's not easy and can't be faked. Sometimes it helps to just be in your world as it is.</li>
+</ul>
+<blockquote>
+<p>First, just be—be a person—and then be a person to others.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶397</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.3 "The Genuine Heart of Sadness" (awakened heart as willingness to face your state of mind); SP ch.5 "Synchronizing Mind and Body"; SP ch.16 "Sacred World"; SP ch.18 "How to Rule" (the warrior in the world); GES ch.14 "The King of the Four Seasons" (maintaining "trips"); GES ch.1 "A Dot in the Open Sky"; GES Prologue ("Just be"); GES ch.2 "Working with Early Morning Depression" (training to be genuine, not fake)</p>
+<p class="callout try"><strong>Try this:</strong> This week, be a little conscious of which technique you are using in your session and how it affects you. It doesn't matter which one.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-37:13">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">37:13</span> Several short sittings</span></summary>
+<div class="body"><p>The co-teacher added two things.
+- <strong>Many short periods.</strong> More and more teachers recommend several short sittings instead of one long one. Short, but more than one.
+- <strong>Give up white-knuckling.</strong> Sometimes a sitting is mostly gripping and forcing. When you notice that, give up. Either do something else, or give up and start over.</p>
+<p class="cite">📖 <strong>In the books:</strong> <em>Mindfulness in Action</em> (flexible session lengths; start with what you can); GES ch.1 "A Dot in the Open Sky" ("keep everything very simple")</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p1-40:12">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">40:12</span> Planning movement: walking meditation</span></summary>
+<div class="body"><ul>
+<li>The teacher wants to do a guided practice session together.</li>
+<li><strong>Walking meditation</strong> can't be done online, which she regrets. She values it because it relaxes rigidity, puts attention on the feet, and is said to be a bridge between sitting and ordinary life. Your eyes are in a meditative state while you move, so you sense the world constantly changing around you, which is realistic.</li>
+<li>In its place she suggests some <strong>gentle guided movement</strong> that brings body and mind together. The emphasis is on feeling your body as it moves, not holding poses or exercising.</li>
+<li>She asked the group how much they like to move, now that they're about 45 minutes in. The plan: stand and stretch now, then do some guided movement partway through the practice.</li>
+</ul>
+<p class="cite">📖 <strong>In the books:</strong> <em>The Path of Individual Liberation</em> (Trungpa: "Walking meditation is a bridge between sitting and postmeditation"); <em>Mindfulness in Action</em> (walking practice, lowered gaze); GES Prologue ("Posture is important, not just in sitting practice, but in whatever you do"); SP ch.5 "Synchronizing Mind and Body"</p>
+<p class="callout skip">⏭️ <strong>Skip [44:03–46:50]:</strong> Stretch break. The recording has a gap (about 44:10 to 45:59), then a gong and a check that everyone is back.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details></section>
+<section class="part" aria-labelledby="part2">
+<h2 id="part2">Part 2 — A guided sitting meditation and a movement practice (47:59–01:26:38) · about 6 min read <span class="pcount" data-part="p2"></span></h2>
+<details class="sec" data-id="p2-47:59">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">47:59</span> Why we sit, and how to sit</span></summary>
+<div class="body"><ul>
+<li>Shambhala meditation is done with a <strong>view of basic goodness</strong> (the idea that you are fundamentally worthwhile and okay). The teacher says some people meditate in a sauna, in the woods or walking on a beach. Here, we meditate in basic goodness, but we are sitting it.</li>
+<li><strong>Posture</strong> is the first thing. It is called meditative posture because the breath is unobstructed in it.</li>
+<li>Her image is a flower. Your pelvis is the pot, solid on the ground. Your spine is the stem rising from it.</li>
+<li>A small inward curve in the lower back lets the spine move up. She says her organs feel they have enough room like this.</li>
+</ul>
+<blockquote>
+<p>By meditation here we mean something very basic and simple that is not tied to any one culture. We are talking about a very basic act: sitting on the ground, assuming a good posture, and developing a sense of our spot, our place on this earth. This is the means of rediscovering ourselves and our basic goodness, the means to tune ourselves in to genuine reality, without any expectations or preconceptions.</p><p class="src">— <em>SP ch.2 "Discovering Basic Goodness"</em> ¶37</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (sitting, posture, upright back, "good sense of head and shoulders"); GES ch.1 "A Dot in the Open Sky" (synchronize mind and body, good posture, keep it simple)</p>
+<p class="callout try"><strong>Try this:</strong> Sit so the pelvis is heavy on the seat, with a slight lower-back curve and an upright spine.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-50:16">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">50:16</span> Placing attention on the out-breath</span></summary>
+<div class="body"><p class="callout watch">🎥 <strong>Worth watching [50:16–01:06:30], about 16 min, optional "practice along, audio only":</strong> The sit runs mostly in silence with a few spoken cues, and doing it with her voice is easier than reading the steps. Audio is enough, no video needed.</p>
+<ol>
+<li>Take the posture above.</li>
+<li>Gaze goes downward, not very close, to cut down distraction.</li>
+<li>Put attention on the <strong>out-breath</strong> (the exhale). Just go with it.</li>
+<li>At the end of each out-breath, relax. You do not have to catch every one.</li>
+<li>If the mind wanders, come back to the next out-breath.</li>
+</ol>
+<p>What it brings out: the teacher says Trungpa Rinpoche describes the act of placing the mind as the opposite of <strong>laziness</strong> (being too slack to do anything). You are actually doing something, and that gives freedom from laziness, which she says causes depression.</p>
+<p>After the quiet stretch (about 53:48), notice a little relief from daily stress and obligations, and a little uplift. She calls this <strong>joy</strong>: a light, quiet joy, not "I just won the Nobel Prize" joy. It is a bit of freedom of mind.</p>
+<blockquote>
+<p>You simply come back to your posture, and you are ready for another out-breath.</p><p class="src">— <em>SP ch.2 "Discovering Basic Goodness"</em> ¶41</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (gaze slightly downward, out-breath, "come back to your posture", labeling thoughts and coming back); GES ch.8 "The King of Basic Goodness" (the breath as a background technique that occupies you); GES ch.7 "Sacredness: Natural Law and Order" and GES ch.1 "A Dot in the Open Sky" (freedom from laziness); GES ch.2 "Working with Early Morning Depression" (the joy of basic goodness)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-55:52">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">55:52</span> Coming back gently, and breathing with the whole body</span></summary>
+<div class="body"><p>Meditation brings out a kind of birth of the warrior from within (SP ch.4).</p>
+<ol>
+<li>Bring the gaze in quite close, to be really inward.</li>
+<li>Come back to the breath. This is "very, very immediate", and it need not be only the out-breath.</li>
+<li>At some point you will notice you are not following the breath any more and are engaged in "something else" (a thought).</li>
+<li>Come back gently, not judging, to wherever the breath is at that moment.</li>
+<li>Later (about 1:01:44), pay attention to both in-breath and out-breath. You can <strong>breathe with the whole body</strong>, fully embodying yourself. She points out that gas exchange happens at the cellular level in every part of the body.</li>
+</ol>
+<p>Two things to know. The breath is always there, and if it is not, you no longer have to worry. And the moment you notice you are somewhere else is a moment of <strong>awareness</strong>. Celebrate it, but do not linger on it or build "a sand castle" there.</p>
+<p>Going inward can be a little or very unsettling. The breath is the <strong>anchor</strong>, the steadier. We enter this on some faith that basic goodness is worthwhile. The result is that we find we need not be afraid of who we are. The outcome she names is <strong>genuineness</strong>: no pretending, and kindly being who you are. She calls this "establishing where you live."</p>
+<blockquote>
+<p>The key to warriorship and the first principle of Shambhala vision is not being afraid of who you are. Ultimately, that is the definition of bravery: not being afraid of yourself.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (labeling thoughts "thinking" and returning to the breath; being genuine and without deception); GES ch.1 "A Dot in the Open Sky" (include discursive thoughts, keep going back to the breath); GES ch.8 "The King of Basic Goodness" (steady mind, watching thoughts without commentary); SP ch.1 "Creating an Enlightened Society" (not being afraid of who you are); SP ch.4 "Fear and Fearlessness" (the birth of the warrior); gaze closer or lower per instruction: Trungpa, <em>Collected Works Vol. 9</em> (note on eye gaze); whole-body breathing: Analayo, <em>Mindfulness of Breathing</em></p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-01:03:06">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:03:06</span> Opening to the senses</span></summary>
+<div class="body"><p>She says opening out to the world happens in steps. The first is the <strong>warrior in the world</strong>.</p>
+<ol>
+<li>Extend the gaze out a little.</li>
+<li>Take in what your senses tell you about your surroundings, not your opinion of it.</li>
+<li>Follow the breath more lightly.</li>
+<li>Notice light and shadow, temperature, where you are, smells, sounds, colors.</li>
+<li>When the mind wanders (she gives "written our shopping list" as an example), notice that moment as awareness. Come back to exactly where you are, in this specific place and body.</li>
+</ol>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.5 "Synchronizing Mind and Body" (using sense perceptions, mind and body together); SP ch.18 "How to Rule" and SP ch.21 "The Shambhala Lineage" (the warrior in the world); SP ch.2 "Discovering Basic Goodness" (being "there properly", labeling and coming back)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-01:06:52">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:06:52</span> Guided movement — follow along with the recording</span></summary>
+<div class="body"><p class="callout watch">🎥 <strong>Worth watching [01:06:52–01:11:00], about 4 min:</strong> This is a guided movement practice done seated, led by the teacher. The movements are visual, and the transcript only has her words, so follow along with the recording.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-01:11:47">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:11:47</span> Relating to the world: gentleness, humility, and extending further</span></summary>
+<div class="body"><p class="callout watch">🎥 <strong>Worth watching [01:11:47–01:22:20], about 10 min, optional "practice along, audio only":</strong> More mostly-silent sitting with a few pointers. Listening with her voice helps, but video is not needed.</p>
+<p>Pick up the opening to the world: the technique is being here in this specific time, body and place.
+- Daring to step into our world is what lets us relate to it.
+- Relating to the world brings <strong>gentleness</strong>.
+- A surprising outcome is <strong>humbleness</strong>. The world has its own logic and being, and gives us a lot too.</p>
+<p>Then:</p>
+<ol>
+<li>Raise the gaze and look outward.</li>
+<li>Extend yourself further. She reflects that if you extend from here into the neighborhood, the city and beyond, you are doing it in your mind. So it is really extending into the space of mind.</li>
+<li>Notice what happens: light, tension on the breath.</li>
+<li>When the mind wanders, Trungpa Rinpoche says to come back not to the breath itself but to <strong>awareness of breathing</strong>. Nothing is negated or turned away from, and you breathe with it.</li>
+<li>Let whatever is in your consciousness be. With awareness of breathing, it does not take over the whole landscape. It sits within that larger space.</li>
+</ol>
+<p>She asks a question without answering it directly: where did that awareness come from, and where do thoughts come from? Awareness is "just there." The world communicates with us and we with it. <strong>Inquisitiveness</strong> (what is the world saying, what are we saying to it) goes with this. The outcome is <strong>patience</strong> with the world, and the effort of simply being present to what is actually going on.</p>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.8 "Renunciation and Daring" (a sense of greater space that encompasses any thought); SP ch.5 "Synchronizing Mind and Body" (gentleness); GES ch.5 "Discipline in the Four Seasons" (humility, becoming "very inquisitive"); GES ch.7 "Sacredness: Natural Law and Order" (patience); GES ch.3 "Overcoming Physical Materialism" (daring); awareness of breathing: Trungpa, <em>Mindfulness in Action</em> and <em>Opening the Dharma Treasury</em></p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-01:20:41">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:20:41</span> Open sky: dropping technique</span></summary>
+<div class="body"><ol>
+<li>Drop any sense of technique.</li>
+<li>Look out and in at once. You are aware of where you are and what is going on in your mind, and in the world.</li>
+<li>Just sit there and be.</li>
+<li>For a minute or two, let the skills you have built (relaxation, honesty, gentleness, patience) flower into simply being.</li>
+</ol>
+<p>She says this uncovers our <strong>awakeness</strong>, which is like the sun.</p>
+<blockquote>
+<p>That awakeness is the dot in space. Inspired or not inspired: both are the dot in space. As long as you come back, that’s fine.</p><p class="src">— <em>GES ch.21 "The Great Eastern Sun"</em> ¶649</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES ch.21 "The Great Eastern Sun" (the dot in space, awakeness); GES ch.13 "Aloneness and the Seven Virtues" (the dot in space, always space); GES ch.8 "The King of Basic Goodness" (technique as background, just sit and watch thoughts); GES Epilogue "Source Materials and Structure" (the title "Open Sky/Primordial Stroke")</p>
+<p class="callout try"><strong>Try this:</strong> On a short sit, follow the out-breath, then breathe with the whole body, then open to the senses, then to awareness of breathing, then drop the technique and just sit.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p2-01:23:08">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:23:08</span> After the sit: "eastern sun"</span></summary>
+<div class="body"><ul>
+<li>A participant asks about the Great Eastern Sun. The audio is garbled here (audio unclear, 1:24:03–1:24:27).</li>
+<li>Her answer: "eastern" does not mean oriental. It means "up", the fresh sun at about ten o'clock, not the overhead sun where you need sunblock.</li>
+</ul>
+<blockquote>
+<p>The model for the Great Eastern Sun is the sun that shines at ten o’clock in the morning. The sun is no longer the early morning sun, and it is no longer a teenage sun. The sun is about to be full, but it’s not quite full. That ten o’clock sun is the Great Eastern Sun.</p><p class="src">— <em>GES ch.12 "The Big No"</em> ¶555</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES ch.12 "The Big No" (the ten o'clock sun)</p>
+<p class="callout skip">⏭️ <strong>Skip [01:25:09–01:26:38]:</strong> Logistics, announcements and a 10-minute break.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details></section>
+<section class="part" aria-labelledby="part3">
+<h2 id="part3">Part 3 — Symbols, and a poem about the fearful mind (01:36:53–02:20:59) · about 10 min read <span class="pcount" data-part="p3"></span></h2>
+<details class="sec" data-id="p3-01:37:06">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:37:06</span> Symbols are doors, not definitions</span></summary>
+<div class="body"><p class="callout skip">⏭️ <strong>Skip [01:36:53–01:37:06]:</strong> microphone check and a nod to the group for arriving on time.</p>
+<p>The teacher wants to say a few brief things about <strong>symbols</strong>. The shift to "warrior vision" (a brave, open way of looking) is mostly expressed in <strong>symbolic language</strong>, rather than in plain explanation.</p>
+<p>She gives two examples from the earlier meditation material.
+- <strong>The sun</strong> stands for our awakeness, which we are uncovering, not building.
+- <strong>The cocoon</strong> stands for everything we wrap ourselves in that keeps us from going anywhere. She adds that some change does happen inside a cocoon. It is a natural process before the butterfly appears, so the cocoon is an analogy, not an insult.</p>
+<p>Then she explains how a symbol differs from an analogy. A symbol carries "a whole suitcase full of meanings" (the word she kept reaching for was <em>portmanteau</em>). So a symbol works like a <strong>portal</strong>: an entry into a whole realm of things. This takes us past our usual conceptual way of thinking.</p>
+<blockquote>
+<p>The sun always shines because you always shine. You are shining at this moment. The sun is a symbol of that ever glowing.</p><p class="src">— <em>GES ch.19 "The Mukpo Clan"</em> ¶629</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES ch.19 "The Mukpo Clan"; GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"</p>
+<p class="callout try"><strong>Try this:</strong> Pick one symbol you already know, such as the sun or a cocoon. Write down three meanings it carries for you, not one definition.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-01:39:32">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:39:32</span> "Warrior": a word that changes meaning</span></summary>
+<div class="body"><p>The teacher uses "warrior" because it has already been introduced. For years she struggled with it, because to her a warrior was someone who uses weapons to attack in a war. She calls that the <strong>conventional</strong> meaning.</p>
+<p>Then she offers another one: a warrior is simply someone <strong>brave</strong>. Think how brave it is to be gentle in certain situations. She is careful to say she doesn't mean "stupid gentle". Sometimes we have to defend ourselves, and some people are dangerous. But it takes real bravery to look at our own minds. That is also warrior.</p>
+<p>Her larger point is about how this language works. Inside the Shambhala setting, words begin to take on unconventional meanings, and those meanings <strong>open gradually</strong>. There's no switch to flip. It's like opening the first page of a book: you don't yet know the whole book, and it unfolds. So she suggests keeping the mind open and letting the notions "flower".</p>
+<blockquote>
+<p>The challenge of warriorship is to step out of the cocoon, to step out into space, by being brave and at the same time gentle.</p><p class="src">— <em>SP ch.19 "The Universal Monarch"</em> ¶201</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"; SP ch.19 "The Universal Monarch"</p>
+<p class="callout try"><strong>Try this:</strong> Think of a time when being gentle took more courage than being tough. What made it brave?</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-01:41:26">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:41:26</span> Where the poem comes from, and how the class will use it</span></summary>
+<div class="body"><p class="callout skip">⏭️ <strong>Skip [01:42:16–01:43:59]:</strong> screen-sharing setup, making the teacher a co-host and getting the text visible.</p>
+<p>The passage everyone received is printed in <em>Shambhala: The Sacred Path of the Warrior</em>, at the opening of Part Two, "Sacredness: The Warrior's World". Trungpa Rinpoche explains this same passage in <em>Smile at Fear</em>, ch.7 <strong>"The Education of the Warrior"</strong>.</p>
+<p>She puts it on screen briefly, reads it aloud, then takes it away. She asks everyone to follow their own copy. The plan is to go through it a few lines at a time, with everyone joining in.</p>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; <em>Smile at Fear</em> ch.7 "The Education of the Warrior" (in <em>Collected Works</em> Vol. 9)</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-01:44:00">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:44:00</span> The whole poem, read aloud</span></summary>
+<div class="body"><p class="callout watch">🎥 <strong>Worth watching [01:44:00–01:45:03], about 1 min:</strong> the teacher reads the whole poem aloud, and the pacing and tone of her reading carry something the printed lines don't.</p>
+<p>The poem follows the fearful mind as if it were a child growing up. It starts in a cradle and ends with the mind seeing the Great Eastern Sun. Here is the full text as the group read it.</p>
+<blockquote>
+<p>That mind of fearfulness Should be put in the cradle of loving-kindness And suckled with the profound and brilliant milk of eternal doubtlessness. In the cool shade of fearlessness, Fan it with the fan of joy and happiness. When it grows older, With various displays of phenomena, Lead it to the self-existing playground. When it grows older still, In order to promote the primordial confidence, Lead it to the archery range of the warriors.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+<p>Then the fearful mind Can change into the warrior’s mind, And that eternally youthful confidence Can expand into space without beginning or end. At that point it sees the Great Eastern Sun.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+</blockquote>
+<p>In this stretch the class only covers the first stages (cradle, milk, shade and fan, playground). The remaining stages, the archery range and the final lines, are not reached in this part.</p>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-01:45:58">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:45:58</span> "Put the mind of fearfulness in the cradle of loving-kindness"</span></summary>
+<div class="body"><p>A participant reads the first line. The first reactions are warm.
+- The cradle made one person think of <strong>sangha</strong> (fellow practitioners). Everyday family and work life may not feel like a cradle, but a community on the same path can be a place to bring fearfulness.
+- Another found the image beautiful: the tenderness we show babies is a kind of love without judgment. Holding yourself or someone else that way "in your heart" is a lovely picture.</p>
+<p>One participant gave the sharpest observation. Their natural reaction to fear is to treat it as unacceptable, to add aggression, to fight it or feel bad about it. Putting it in a cradle is the opposite of that habit. The teacher says this is a good example of the "slightly unconventional" quality: what we do naturally is not what the line asks.</p>
+<p>Others added more angles.
+- One person read the cradle as the way into fearlessness. Fearlessness is not the absence of fear but opening up to it, and resting in love makes that easier.
+- Another noticed the line says <em>fearfulness</em>, which suggests simply accepting that one is full of fear.
+- One person pictured the rib cage as a cradle around the heart. It is protective, yet the heart is the most vulnerable part.
+- Another noted that even warriors with weapons began as babies in cradles, and that most of us have been, and also cared for, tiny helpless babies.</p>
+<p>One participant said the early images were just how you raise a child, while the later lines felt heavy and a bit depressing. The teacher answered that this isn't only about babies. We put our older, anxious parts into the cradle too, and we carry the cradle with us. She also pointed out how interesting it is that an education of the warrior starts with fearfulness. She said they would go on, courageously but not rushing.</p>
+<blockquote>
+<p>Acknowledging fear is not a cause for depression or discouragement. Because we possess such fear, we also are potentially entitled to experience fearlessness. True fearlessness is not the reduction of fear; but going beyond fear.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶51</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.4 "Fear and Fearlessness"</p>
+<p class="callout try"><strong>Try this:</strong> The next time fear shows up, notice your first reaction (fighting it, judging it, hiding). Then picture setting that fear down in a cradle. What changes?</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-01:56:03">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">01:56:03</span> "The profound and brilliant milk of eternal doubtlessness"</span></summary>
+<div class="body"><p>Someone reads the line twice. A participant says it sounds like being nurtured. Another asks whether doubtlessness is itself nurturing, and someone adds "comforting". The questions then pile up.</p>
+<ul>
+<li><strong>Does it help to talk about doubt first?</strong> A participant said doubt creeps in with age and physical limits, and that self-doubt seems to rise with disability. They asked how one gets past it. Is the opposite of doubtlessness faith? Another said no. Perhaps we can have less doubt by trusting the world more, but not necessarily by trusting a body that is falling apart.</li>
+<li><strong>The teacher's question:</strong> do you remove doubt, erase it, or go to a place before doubt?</li>
+<li><strong>A participant:</strong> it's enough to recognize doubt. Another asked, "What happened to my connection to eternal doubtlessness?" when doubt is rampaging, and wondered if it is the same as confidence in <strong>basic goodness</strong> (the natural wholesome nature we all have). People went back and forth between feeling it and losing it.</li>
+<li><strong>A reframe:</strong> someone asked whether the line is really about doubt at all. They suggested it points to seeing your experience as it is, openly, so there is nothing to doubt. That is the nourishing milk.</li>
+<li><strong>A grammar point:</strong> "eternal doubtlessness" describes the milk we are fed, not the self. It is not present in every moment, but it is <strong>eternally accessible</strong>, and we can open to it. The teacher said she has always found this one of the harder lines.</li>
+</ul>
+<p>The group then added images. A participant said that newborns have no doubt: they are "swaddled in doubtlessness". Another brought up the Buddha under the tree, when Mara asked, "How do you know you're not kidding yourself?" His answer was to touch the earth with his hand. That is an image of not having to talk yourself into it. This person worried that Buddhist imagery was once discouraged in Shambhala courses, but the teacher didn't object. She suggested they could say "touching the immediacy of our experience". She also invited them to do an image search for the earth-touching gesture.</p>
+<p>The teacher's own point: <strong>basic goodness</strong> is the capacity for that openness. No matter what is happening to "us decrepit ones", the capacity itself doesn't change. She finds the topic of ageing amusing. She closed by saying symbols open gradually. A participant thanked her, having struggled with this line for a while.</p>
+<blockquote>
+<p>Absence of doubt is trusting in the heart, trusting yourself. Being without doubt means that you have connected with yourself, that you have experienced mind and body being synchronized together.</p><p class="src">— <em>SP ch.5 "Synchronizing Mind and Body"</em> ¶57</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.5 "Synchronizing Mind and Body"; GES ch.1 "A Dot in the Open Sky"; SP ch.9 "Celebrating the Journey" (earth-touching)</p>
+<p class="callout try"><strong>Try this:</strong> When doubt is loud, don't argue with it. Ask: what is here that I don't need to doubt, such as the ground under me or my next breath?</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-02:06:02">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:06:02</span> "In the cool shade of fearlessness, fan it with the fan of joy and happiness"</span></summary>
+<div class="body"><p>A participant read the two lines, and the group first got into images.
+- <strong>Shade</strong> suggests refuge, and that refuge is rooted in fearlessness.
+- One person imagined pushing a baby in a pram on a hot day, searching out shade and fanning the child.
+- Another said you can't feel the cool shade of fearlessness if you never feel the blazing heat of fear, and fanning only matters if there is something to fan away.
+- Panic can feel like heat: sweating, racing heart, suffocating. Fearlessness is the cool shade, and joy and happiness are the mechanisms that get you there.</p>
+<p>Then came a debate about how the two lines connect.
+- One read them as separate: you can be in the shade and, if lucky, also fanned. Are joy and happiness needed for fearlessness?
+- Another said "fan it" refers back to the <strong>mind of fearfulness</strong>. We go into the shade to cool down, and we fan with joy. The whole poem is a set of techniques for working with fear as we mature.
+- A third turned it around: you wouldn't fan with joy if you weren't first in the shade, because there is no point in fanning when the sun is still beating down.
+- One more said that resting in the cradle of loving-kindness naturally fans up joy, "like an electric fan", and makes fearlessness and doubtlessness easier to reach. Someone added that fanning can both ignite and quell.</p>
+<p>The teacher admitted she likes literalness, so unconventional thinking is harder for her.</p>
+<blockquote>
+<p>If we look into our fear, if we look beneath its veneer, the first thing we find is sadness, beneath the nervousness. Nervousness is cranking up, vibrating, all the time. When we slow down, when we relax with our fear, we find sadness, which is calm and gentle.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+</blockquote>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.4 "Fear and Fearlessness"; GES ch.7 "Sacredness: Natural Law and Order"</p>
+<p class="callout try"><strong>Try this:</strong> Notice where you find shade in your day. What counts as "fanning" for you: a breath, a laugh, a cool drink?</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p3-02:18:24">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:18:24</span> "Lead it to the self-existing playground"</span></summary>
+<div class="body"><p>This time there are three lines to read, and a participant reads them twice: <em>when it grows older, with various displays of phenomena, lead it to the self-existing playground.</em></p>
+<p>A participant then reminded everyone of something pointed out earlier: the "it" is still the <strong>mind of fearfulness</strong>. That is what we are trying to work with. They read "various displays of phenomena" as life unfolding, which is not necessarily going to be helpful. That is why you need to lead the mind to the <strong>self-existing playground</strong>, which they took to mean inner reflection and sitting with where you are, rather than having to deal with all the phenomena. In their words, sitting practice is a good idea.</p>
+<p>The next participant started to speak just as this part of the recording ends (audio ends mid-sentence at 02:20:59).</p>
+<p class="cite">📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.20 "Authentic Presence"</p>
+<p class="callout try"><strong>Try this:</strong> Next time life piles on, try sitting for five minutes with nothing to fix. Notice what the playground feels like.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details></section>
+<section class="part" aria-labelledby="part4">
+<h2 id="part4">Part 4 — The Playground, the Archery Range and Human Society (02:21:00–03:07:11) · about 6 min read <span class="pcount" data-part="p4"></span></h2>
+<p>Nothing in this part needs to be watched. It is all talk and discussion, and the text carries it. The last part is closing and can be skipped.</p><details class="sec" data-id="p4-02:21:00">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:21:00</span> The "self-existing playground": inside and outside</span></summary>
+<div class="body"><ul>
+<li>The group is working through a poem by Chögyam Trungpa (CTR) about <strong>the fearful mind</strong> growing up. A participant says fearfulness may be the <strong>ground of practice</strong>, the place where we start. As the fearful mind "grows older", that can mean our practice maturing.</li>
+<li><strong>Displays of phenomena</strong> (everything that appears in experience) are the immediacy of our experience. The <strong>self-existing playground</strong> (the world as a field that runs by its own logic) is always available, right now. The group likes the phrase "eternally accessible immediacy."</li>
+<li>A participant notes that the longer you meditate, the more you notice how much you think.</li>
+<li>The playground is read two ways:<ul>
+<li>Outside: the phenomena the senses meet.</li>
+<li>Inside: the thoughts that arise on the cushion, the activity you keep coming back from.</li>
+<li>The group's answer is "both an inside and an outside."</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>When it grows older, With various displays of phenomena, Lead it to the self-existing playground.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+</blockquote>
+<p class="callout try"><strong>Try this:</strong> Next time you sit, notice that thoughts and sensory impressions are both "the playground." Both are always there, and you keep coming back from them.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:25:45">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:25:45</span> Sense perceptions as the vehicle</span></summary>
+<div class="body"><ul>
+<li>The teacher offers an analogy. What is the vehicle? The self-existing displays of phenomena are our <strong>sense perceptions</strong>, which is how we first meet the world. Meeting it that way, we start to see the world as having its own being and logic. That is the self-existing playground.</li>
+<li>The environment is then something to rest our attention on. The teacher asks "is that a playground?" and answers "it's certainly self-existing."</li>
+<li>The teacher adds that earth, water, fire and all beings, animate and inanimate, share a self-existing nature.</li>
+</ul>
+<blockquote>
+<p>When tenderness evolves in that direction, then you can truly appreciate the world around you. Sense perceptions become very interesting things.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+</blockquote>
+<p class="callout skip">⏭️ <strong>Skip [02:30:22–02:31:35]:</strong> housekeeping</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:31:39">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:31:39</span> Line three: "the archery range of the warriors"</span></summary>
+<div class="body"><ul>
+<li>The line: "When it grows older still, in order to promote the primordial confidence, lead it to the archery range of the warriors." It is read three times, and the teacher admits it is not the easiest line in the text.</li>
+<li>A participant reads the line as acting without clinging to a result. They see that as what promotes <strong>primordial confidence</strong> (a basic trust we were born with).</li>
+<li>Another participant equates primordial confidence with <strong>basic goodness</strong> (the inherent worth in everyone). They remember a bow-and-arrow image from the book but are unsure what it stands for. Is the arrow skillful means and the bow fearlessness?</li>
+</ul>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:33:30">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:33:30</span> Bow, arrow, trust and results</span></summary>
+<div class="body"><ul>
+<li>Someone opens the book at random and finds the passage. They identify it as from the chapter "Celebrating the Journey." The group reads it twice and notes the quality of <strong>inquisitiveness</strong> (a keen, curious looking into things). The arrow of intellect and the bow of action together become trust in your world. You look into things yourself rather than "relying on belief alone."</li>
+<li>Trust here means this: when you act, the world will answer. A participant puts it plainly: an arrow either hits or misses, and trust is knowing there will be a message.</li>
+<li>Wanting a good result can make us hesitate to act at all. The point is to act and see what happens, not to judge whether you hit the target.</li>
+<li>You are acting in the world and will experience the result. Things going wrong is "usually where there's a bit more growth or learning."</li>
+</ul>
+<blockquote>
+<p>The sense of trust is that, when you apply your inquisitiveness, when you look into a situation, you know that you will get a definite response. If you take steps to accomplish something, that action will have a result—either failure or success. When you shoot your arrow, either it will hit the target or it will miss. Trust is knowing that there will be a message.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶91</p>
+</blockquote>
+<p class="callout try"><strong>Try this:</strong> Pick one small action you have been hesitating over, do it, and just watch what comes back without grading it.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:39:28">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:39:28</span> When reality "opens up"</span></summary>
+<div class="body"><ul>
+<li>A participant says the moments when things go differently than expected are when they see the world most clearly. They have gone past their assumptions, and "reality opens up." They call it a kind of <strong>primordial thought</strong>.</li>
+<li>Another participant brings up <strong>change blindness</strong> (we often miss big and small changes around us because our attention is elsewhere). The famous invisible-gorilla video, where people miss a gorilla walking through a scene, is the usual example. They say they treasure the moments when "what's really happening right now opens up."</li>
+<li>The teacher says what is challenged is habitual, conceptual thinking. It is "cracked open a bit and the light gets in." That is hard to keep up all the time.</li>
+<li>A participant notes the surprise can go either way, missing a target you expected to hit or hitting one you did not. Either way there is "a little bit of startle-ness," and everything seems clear for a minute or two. Someone adds that confirming your bias is not a way to open up.</li>
+<li>A participant recalls the bravery to be gentle. Being gentle with your actions and their outcomes seems to promote primordial confidence. Another agrees: you go out and practice bravery, gentleness and open-heartedness on the archery range, confident the world will answer, "yay or nay."</li>
+</ul>
+<blockquote>
+<p>So you no longer need to feel shy or embarrassed about being gentle. In fact, your softness begins to become passionate.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+</blockquote>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:43:23">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:43:23</span> Line four: "human society which possesses beauty and dignity"</span></summary>
+<div class="body"><ul>
+<li>The fourth line: "When it grows older still, to awaken primordial self-nature, let it see the society of men which possesses beauty and dignity."</li>
+<li>The group is using an older edition with "society of men". A participant proposes "the society of humankind," because the rhythm sounds better. Another says the 1960s and 70s language is understandable, as is the word "warrior." Some words "get our backs up" and can keep us from falling in love with what we were first introduced to. Another says that can itself be a moment of waking up.</li>
+<li>Society at large does not always look beautiful and dignified. The teacher asks the group to look at society in the small rather than the large. A dinner, a class or a coffee: "there is beauty and dignity in the humans just being together." The teacher says this is the <strong>primordial self-nature</strong>, and that the connection is the point.</li>
+<li>Oppressive societies are the opposite of what the line means. It is still true that something about human society is meant to awaken the primordial self-nature.</li>
+</ul>
+<blockquote>
+<p>Enlightened society comes from the kitchen sink level, from the bedroom level.</p><p class="src">— <em>GES ch.2 "Working with Early Morning Depression"</em> ¶411</p>
+</blockquote>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:52:28">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:52:28</span> Wrap-up: "it", fearfulness and the brave one</span></summary>
+<div class="body"><ul>
+<li>The teacher points out that the pronoun "it" repeats all through the poem: "When it grows older." We do not lose fearfulness right away. Meditation lets us work with the initial fearful mind in different ways as we go.</li>
+<li>The opposite of fearfulness is bravery. The simplest definition of a warrior is someone who is brave. The Tibetan word is <strong>pawo</strong> (Tibetan for "brave one"), and it is also used for the bodhisattva path.</li>
+<li>
+<blockquote>
+<p>Here the word warrior is taken from the Tibetan pawo, which literally means “one who is brave.” Warriorship in this context is the tradition of human bravery, or the tradition of fearlessness.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+</blockquote>
+</li>
+</ul>
+<p class="callout try"><strong>Try this:</strong> In your meditation this week, notice how it is going.</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details><details class="sec" data-id="p4-02:55:29">
+<summary><span class="tick" aria-hidden="true"></span><span class="label"><span class="ts">02:55:29</span> Closing</span></summary>
+<div class="body"><p class="callout skip">⏭️ <strong>Skip [02:55:29–03:07:11]:</strong> closing and admin</p>
+<button type="button" class="mark" aria-pressed="false">Mark as read</button></div>
+</details></section>
+</div>
+<section id="companion" class="card" aria-label="More of Trungpa's words">
+<details>
+<summary>More of Trungpa's words, moment by moment</summary>
+<p class="lead">A fuller set of passages from <em>Great Eastern Sun</em> (GES) and <em>Shambhala: The Sacred Path of the Warrior</em> (SP), matched to each moment of the class. The summaries are paraphrased. The quoted passages are copied exactly from the books, and ¶ numbers refer to the digital edition used.</p>
+<h3>Part 1 (00:08 – 46:50)</h3><details class="sec plain"><summary><span class="label"><span class="ts">00:08</span> Opening, recording check</span></summary><div class="body"><p>Brief logistics: remembering to turn something back on, waiting for a latecomer.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">00:41</span> Bow and introductions</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> After a bow, the teacher invites each participant to introduce themselves in turn; a late arrival joins and is caught up.
+<strong>CTR's words:</strong> No direct CTR text found.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">13:16</span> Not a ladder: how to name this transition</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says the earlier warriorship training is a set of five aspects, not a ladder, and she is trying to avoid the word "level" (and the old term "graduate program"). The Great Eastern Sun marks a transition to the sacred path, because what continues from the earlier training is the meditation. She frames the book title: "Shambhala warrior" are the outer words, "the sacred path" the inner words, so this is a move to a more inner level of the Shambhala teachings, not a personal inner level.
+📖 <strong>In the books:</strong> GES front matter (Preface); GES Prologue; GES ch.2 "Working with Early Morning Depression"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The first volume was like a guidebook to Shambhala or a road map of the warrior’s path. Great Eastern Sun is about transmission and about embodying and manifesting.</p><p class="src">— <em>GES front matter (Preface)</em> ¶367</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">16:46</span> The sacred path teachings</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The sacred path topics are Trungpa Rinpoche's teachings, many given at major seminars.
+📖 <strong>In the books:</strong> GES Epilogue (source materials and structure)
+<strong>CTR's words:</strong> No direct CTR text found.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">18:45</span> Gentleness, fearlessness, intelligence, and the warrior's outlook</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The early warriorship training introduces the warrior as manifesting gentleness, fearlessness and intelligence. The sacred path gives the warrior's outlook and how it manifests. The Great Eastern Sun is an introduction to a different way of seeing, a vision with some inner depth.
+📖 <strong>In the books:</strong> GES ch.18 "A Question of Heart"; GES ch.1 "A Dot in the Open Sky"; SP ch.21 "The Shambhala Lineage"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>When we talk about becoming a warrior, we are not talking about conducting warfare, but we’re talking about manifesting fearlessness and gentleness that can save the world.</p><p class="src">— <em>GES ch.18 "A Question of Heart"</em> ¶623</p>
+<p>The vision of the Great Eastern Sun is perpetually looking ahead, looking forward.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶391</p>
+<p>The third quality of inner drala is intelligence, or discriminating awareness, which binds together gentleness and fearlessness.</p><p class="src">— <em>SP ch.21 "The Shambhala Lineage"</em> ¶229</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">20:07</span> The Letter of the Black Ashe: arrogance is not the warrior's perspective</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher contrasts conventional thinking with the definitive statements in the Letter of the Black Ashe ("the warrior always does this, never does that"). At first they sounded impossible, but they are not moralistic: the point is not that one is never arrogant, but that arrogance is not part of the warrior perspective, and if arrogant one is simply not being a warrior at that moment. We gradually learn a different way of looking.
+📖 <strong>In the books:</strong> SP ch.20 "Authentic Presence"; GES ch.5 "Discipline in the Four Seasons"; Collected Works Vol. 8 (names the Letter of the Black Ashe as a Shambhala terma text)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The warrior of perky rests in the state of trust that comes from meekness. Therefore he has no doubt, and because of that, he never enters what are known as the lower realms.</p><p class="src">— <em>SP ch.20 "Authentic Presence"</em> ¶215</p>
+<p>Humility, very simply, is the absence of arrogance.</p><p class="src">— <em>GES ch.5 "Discipline in the Four Seasons"</em> ¶451</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">22:22</span> Shift from working on ourselves to a universal perspective</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> So far meditation has mostly been about ourselves: de-stressing and dealing with our state of mind. The sacred path shifts toward the whole world and the notion of enlightened society. Compared with the bodhisattva aim of benefiting all beings, this can feel daunting, but its point is that it is broadening and takes us beyond "me, me, me"; the teacher calls it a great-grandparent perspective. The shift is gradual, not a switch, and meditation remains the key with a somewhat different motivation.
+📖 <strong>In the books:</strong> SP ch.1 "Creating an Enlightened Society"; GES ch.4 "The Cosmic Sneeze"; GES ch.9 "How to Cultivate the Great Eastern Sun"; GES ch.16 "Helping Others"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>If we don’t help, nobody will. It is our turn to help the world.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+<p>The important point is to realize that you are never off duty. You can never just relax, because the whole world needs help.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">25:40</span> Personal meditation practice</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teachers hope everyone has a personal practice. Length, time of day and frequency are personal; that we practice is what matters. When time is short, ten or fifteen minutes is fine.
+📖 <strong>In the books:</strong> <em>Mindfulness in Action</em> (ten or fifteen minutes a day is a fine start); GES ch.1 "A Dot in the Open Sky"; GES ch.2 "Working with Early Morning Depression"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>In meditation, you should keep everything very simple. Work with everything simply and directly, keep a good posture, follow the breath, and then project your mind.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶399</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">28:51</span> The five aspects of the early training as a toolbox</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The five aspects each contribute to one's meditation and have been called a toolbox (an image the teacher is not fond of). One is a kind self-examination, a way of seeing where one actually is without faking it.
+📖 <strong>In the books:</strong> SP ch.5 "Synchronizing Mind and Body"; GES ch.2 "Working with Early Morning Depression" (not fake)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Synchronizing mind and body is not a concept or a random technique someone thought up for self-improvement. Rather, it is a basic principle of how to be a human being and how to use your sense perceptions, your mind, and your body together.</p><p class="src">— <em>SP ch.5 "Synchronizing Mind and Body"</em> ¶57</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">31:32</span> Meeting the world accurately</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> One aspect involves noticing the environment accurately instead of laying our own trip on it, which only paints the world another color. The teacher stresses again that this is not a ladder.
+📖 <strong>In the books:</strong> SP ch.16 "Sacred World"; SP ch.18 "How to Rule"; GES ch.14 "The King of the Four Seasons"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The challenge of warriorship is to live fully in the world as it is and to find within this world, with all its paradoxes, the essence of nowness.</p><p class="src">— <em>SP ch.16 "Sacred World"</em> ¶167</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">33:06</span> Noticing reactions, gaining space and choice</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> One aspect allows space and notices reactions. It is challenging at first, but it gives a little more space in the mind and some choice in action, so that irritation need not descend into anger.
+📖 <strong>In the books:</strong> SP ch.3 "The Genuine Heart of Sadness"; GES ch.18 "A Question of Heart"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>As warriors, we should have a soft heart. That is what the world needs.</p><p class="src">— <em>GES ch.18 "A Question of Heart"</em> ¶623</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">34:43</span> Beyond technique: simply being</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The last aspect is "beyond technique": the ability to let yourself simply be. It is not easy and cannot be faked.
+📖 <strong>In the books:</strong> GES ch.1 "A Dot in the Open Sky"; GES Prologue; GES ch.7 "Sacredness: Natural Law and Order"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>First, just be—be a person—and then be a person to others.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶397</p>
+<p>It is simply being there, always being there.</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶485</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">36:39</span> Home practice for the week</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher invites everyone to be a little conscious this week of which technique they are using in their session and how it is affecting them; it does not matter which one. She then proposes a guided practice session.
+<strong>CTR's words:</strong> No direct CTR text found.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">37:13</span> Participant comment: many short sittings, and giving up white-knuckling</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A second teacher adds that more teachers now recommend several short sessions rather than one long one. It is useful to recognize when you are "white-knuckling" a sitting and to give up and start fresh.
+📖 <strong>In the books:</strong> <em>Mindfulness in Action</em> (flexible session lengths); GES ch.1 "A Dot in the Open Sky"
+<strong>CTR's words:</strong> No direct CTR text found.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">40:12</span> Plan for a guided session; walking meditation</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher proposes a guided practice session. Walking meditation cannot be done online, though it relaxes rigidity, shifts the focus to the feet, and is said to be a transition between sitting and ordinary life. Instead she suggests some gentle guided movement, and asks how much the group likes to move.
+📖 <strong>In the books:</strong> <em>The Path of Individual Liberation</em> (walking meditation as a bridge); <em>Mindfulness in Action</em>; GES Prologue; SP ch.5 "Synchronizing Mind and Body"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Posture is important, not just in sitting practice, but in whatever you do.</p><p class="src">— <em>GES Prologue</em> ¶383</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">42:30</span> Deciding to stand and stretch</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> About 45 minutes in, the group agrees to stand and stretch, then to do some guided movement partway through the session, feeling the body as it moves rather than holding poses. The teacher asks for feedback on the experiment afterward.
+<strong>CTR's words:</strong> No direct CTR text found.</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">44:03</span> Stretch break</span></summary><div class="body"><p>Participants stand and stretch; the recording has a long gap (about 44:10 to 45:59), then a gong and a check that everyone is back.</p></div></details>
+<h3>Part 2 (47:59 – 01:26:38)</h3><details class="sec plain"><summary><span class="label"><span class="ts">47:59</span> Meditating in basic goodness; taking the posture</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says Shambhala meditation is done with a view of basic goodness, and that it is sitting practice, not meditating while walking or in a sauna. She leads into the meditative posture, which keeps the breath unobstructed. She offers the image of a flower: the pelvis is the pot, solid on the ground, and the spine rises like the stem with a slight inward curve in the lower back.
+📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (sitting, posture, upright back); GES ch.1 "A Dot in the Open Sky" (synchronize mind and body, good posture)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>By meditation here we mean something very basic and simple that is not tied to any one culture. We are talking about a very basic act: sitting on the ground, assuming a good posture, and developing a sense of our spot, our place on this earth. This is the means of rediscovering ourselves and our basic goodness, the means to tune ourselves in to genuine reality, without any expectations or preconceptions.</p><p class="src">— <em>SP ch.2 "Discovering Basic Goodness"</em> ¶37</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">50:16</span> Placing attention on the out-breath</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The practice begins by placing attention on the out-breath. The gaze is lowered to minimize distraction, and one relaxes at the end of each out-breath without being obsessive about catching every one. (Mostly silent practice, roughly 50:49–51:37.)
+📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (gaze slightly downward, attention on the out-breath, coming back)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Then, in meditation practice, as you sit with a good posture, you pay attention to your breath. When you breathe, you are utterly there, properly there. You go out with the out-breath, your breath dissolves, and then the in-breath happens naturally.</p><p class="src">— <em>SP ch.2 "Discovering Basic Goodness"</em> ¶39</p>
+<p>You simply come back to your posture, and you are ready for another out-breath.</p><p class="src">— <em>SP ch.2 "Discovering Basic Goodness"</em> ¶41</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">51:37</span> Placing the mind as freedom from laziness and depression</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says Trungpa Rinpoche points out that the proactive act of placing the mind is the opposite of laziness. Doing something gives freedom from laziness, which causes depression.
+📖 <strong>In the books:</strong> GES ch.7 "Sacredness: Natural Law and Order" and GES ch.1 "A Dot in the Open Sky" (freedom from laziness); GES ch.2 "Working with Early Morning Depression" (depression)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Therefore, joyful satisfaction comes with patience. When you feel satisfied, you become free from laziness, which brings exertion. Being free from laziness is not cranking something up. It is simply being meticulous, absolutely meticulous.</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶485</p>
+<p>The obstacles to willingness are laziness and selfishness, which are a temporary patchwork that covers up the dot.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶397</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">53:48</span> Relief, uplift and quiet joy</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> After the sitting, the teacher invites people to notice a little relief from daily stresses and obligations, and a small uplift. She calls this joy. It is a light, quiet joy connected with freedom of mind, not a party or Nobel Prize joy, with basic goodness as the ground.
+📖 <strong>In the books:</strong> GES ch.2 "Working with Early Morning Depression" (the joy of basic goodness)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>We simply take pride in our own life, our own existence, our sparkiness, brilliance, fearlessness, and warriorship. The joy of basic goodness is the key to that.</p><p class="src">— <em>GES ch.2 "Working with Early Morning Depression"</em> ¶405</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">55:52</span> Coming back to the breath with the gaze close</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The gaze comes in close to be inward, and the practice is to return to the breath whenever one notices having wandered, gently and without judging. The breath is always there, so there is nothing to worry about if it seems absent. The moment of noticing is itself a moment of awareness to celebrate, not to linger on or build a "sand castle" around.
+📖 <strong>In the books:</strong> GES ch.1 "A Dot in the Open Sky" (include discursive thoughts, go back to the breath); SP ch.2 "Discovering Basic Goodness" (labeling and coming back); SP ch.4 "Fear and Fearlessness" (the birth of the warrior); GES ch.21 "The Great Eastern Sun" (coming back); gaze closer or lower per instruction: Trungpa, <em>Collected Works Vol. 9</em> (note on eye gaze)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Then include your discursive thoughts in your practice, and continually go back to your breath.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶399</p>
+<p>In the Shambhala tradition, discovering fearlessness comes from working with the softness of the human heart. The birth of the warrior is like the first growth of a reindeer’s horns.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+<p>That awakeness is the dot in space. Inspired or not inspired: both are the dot in space. As long as you come back, that’s fine.</p><p class="src">— <em>GES ch.21 "The Great Eastern Sun"</em> ¶649</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">59:14</span> Going inward, the breath as anchor, not fearing who we are</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says we enter this on some faith that basic goodness is worthwhile. Going inward can be a little or very unsettling, and the breath is the anchor and steadier. In doing this we discover we need not be afraid of who we are.
+📖 <strong>In the books:</strong> SP ch.1 "Creating an Enlightened Society" (not being afraid of who you are); GES ch.8 "The King of Basic Goodness" (steady mind)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The key to warriorship and the first principle of Shambhala vision is not being afraid of who you are. Ultimately, that is the definition of bravery: not being afraid of yourself.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:01:15</span> Genuineness and breathing with the whole body</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The outcome of the practice is genuineness: no need to pretend about what is going on, and one can kindly be who one is. Attention now includes both in-breath and out-breath, and one can breathe with the whole body, totally embodying oneself. Gas exchange at the cellular level goes on in every part of the body, and she calls this establishing "where you live."
+📖 <strong>In the books:</strong> SP ch.2 "Discovering Basic Goodness" (being without deception, fully genuine); GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun" (genuineness); whole-body breathing: Analayo, <em>Mindfulness of Breathing</em>
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The Shambhala training is based on developing gentleness and genuineness so that we can help ourselves and develop tenderness in our hearts.</p><p class="src">— <em>GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"</em> ¶373</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:03:06</span> Warrior in the world: widening the gaze to the senses</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Opening out, the first step is "warrior in the world." The gaze extends a little and one takes in what the senses report about the environment, not one's opinions about it. The breath is followed more lightly. When the mind wanders to a shopping list, one comes back to exactly where one is: light and shadow, temperature, smells, sounds, colors, and the specific body in a specific place.
+📖 <strong>In the books:</strong> SP ch.5 "Synchronizing Mind and Body" (sense perceptions, mind and body together); SP ch.18 "How to Rule" and SP ch.21 "The Shambhala Lineage" (the warrior in the world)
+<strong>CTR's words:</strong>
+No direct CTR text found</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:06:52</span> Guided movement</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher leads a guided movement practice, demonstrating seated. It is visual, so follow along with the recording.
+<strong>CTR's words:</strong>
+No direct CTR text found</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:11:47</span> Relating to the world: gentleness and humbleness</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Picking up the opening to the world, the technique is being in this specific time, body and place. Daring to step into our world is what lets us relate to it. Relating to the world brings gentleness, and the interesting outcome is humbleness: the world has its own logic and being, and gives us a lot too.
+📖 <strong>In the books:</strong> GES ch.1 "A Dot in the Open Sky" (dignity, gentleness); GES ch.5 "Discipline in the Four Seasons" (humility); GES ch.3 "Overcoming Physical Materialism" (daring)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Dignity is having consideration for others and being gentle to yourself and others.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶393</p>
+<p>Real humility is genuineness.</p><p class="src">— <em>GES ch.5 "Discipline in the Four Seasons"</em> ¶451</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:14:27</span> Extending further into the space of mind; awareness of breathing</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The gaze is raised and looks outward. The teacher reflects that extending into the neighborhood, the city and beyond happens in the mind, so it is really the space of our mind. When the mind wanders, Trungpa Rinpoche says to come back not to the breath itself but to awareness of breathing. Nothing is negated or turned away from, and the breathing happens within a larger space so thoughts do not take over the whole landscape. (Silence between about 1:16:55 and 1:18:09.)
+📖 <strong>In the books:</strong> SP ch.8 "Renunciation and Daring" (a greater space that encompasses any thought); GES ch.8 "The King of Basic Goodness" (watching thoughts go up and down); awareness of breathing: Trungpa, <em>Mindfulness in Action</em> and <em>Opening the Dharma Treasury</em>
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>You just sit and watch your thoughts go up and down.</p><p class="src">— <em>GES ch.8 "The King of Basic Goodness"</em> ¶493</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:18:09</span> Inquisitiveness and patience</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher asks where awareness and thoughts come from; awareness is simply there. The world communicates with us and we with it, and inquisitiveness goes with this: what is the world saying, and what are we saying to it? The outcome is patience with the world, and the effort of simply being present to what is actually going on.
+📖 <strong>In the books:</strong> GES ch.5 "Discipline in the Four Seasons" (becoming "very inquisitive"); GES ch.7 "Sacredness: Natural Law and Order" (patience, exertion)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>You become very sharp and precise, naturally alert, and very inquisitive and powerful.</p><p class="src">— <em>GES ch.5 "Discipline in the Four Seasons"</em> ¶451</p>
+<p>In the English language, patience ordinarily means “to wait and see,” “to endure the wait.”</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶483</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:20:41</span> Open sky: dropping technique, uncovering awakeness</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says the open-sky level of the meditation drops any sense of technique. One is aware of where one is and of the mind (looking out and in) at the same time, and simply sits and is. The skills developed (relaxation, honesty, gentleness, patience) flower into simply being, uncovering our awakeness, which is like the sun.
+📖 <strong>In the books:</strong> GES ch.21 "The Great Eastern Sun" (the dot in space, awakeness); GES ch.8 "The King of Basic Goodness" (technique as background, just sit and watch); GES Epilogue "Source Materials and Structure" (the title "Open Sky/Primordial Stroke")
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Sitting practice is very simple and direct, and in the Shambhalian style, it is very businesslike. You just sit and watch your thoughts go up and down.</p><p class="src">— <em>GES ch.8 "The King of Basic Goodness"</em> ¶493</p>
+<p>That awakeness is the dot in space. Inspired or not inspired: both are the dot in space. As long as you come back, that’s fine.</p><p class="src">— <em>GES ch.21 "The Great Eastern Sun"</em> ¶649</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:23:08</span> Discussion: what "eastern sun" means</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A participant asks about the Great Eastern Sun (the audio is garbled). The teacher explains that "eastern" does not mean oriental but "up", the fresh sun at about ten o'clock, not the overhead sun for which you need sunblock.
+📖 <strong>In the books:</strong> GES ch.12 "The Big No" (the ten o'clock sun)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The model for the Great Eastern Sun is the sun that shines at ten o’clock in the morning. The sun is no longer the early morning sun, and it is no longer a teenage sun. The sun is about to be full, but it’s not quite full. That ten o’clock sun is the Great Eastern Sun.</p><p class="src">— <em>GES ch.12 "The Big No"</em> ¶555</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:25:09</span> Logistics and break</span></summary><div class="body"><p>Announcements and a 10-minute break; the session resumes in 10 minutes.</p></div></details>
+<h3>Part 3 (01:36:53 – 02:20:59)</h3><details class="sec plain"><summary><span class="label"><span class="ts">01:36:53</span> Microphone check</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Brief audio check and a word of congratulation to the group for being punctual.
+<strong>CTR's words:</strong> (logistics, none)</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:37:06</span> Symbolic language as portal to the warrior's view</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher says the shift to warrior vision is expressed mainly in symbolic language. Awakeness being uncovered is likened to the sun, and the cocoon stands for all the things we wrap ourselves in that keep us from going anywhere. A symbol is like a portal or a "suitcase" (portmanteau) carrying many meanings, taking us beyond conventional, conceptual thinking.
+📖 <strong>In the books:</strong> GES ch.19 "The Mukpo Clan"; GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The Shambhala training is based on developing gentleness and genuineness so that we can help ourselves and develop tenderness in our hearts. We no longer wrap ourselves in the sleeping bag of our cocoon.</p><p class="src">— <em>GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"</em> ¶373</p>
+<p>The point of the Shambhala training is to get out of the cocoon, which is the shyness and aggression in which we have wrapped ourselves.</p><p class="src">— <em>GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"</em> ¶379</p>
+<p>The sun always shines because you always shine. You are shining at this moment. The sun is a symbol of that ever glowing.</p><p class="src">— <em>GES ch.19 "The Mukpo Clan"</em> ¶629</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:39:32</span> "Warrior" as an example of unconventional meaning</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher struggled for years with the word warrior, which conventionally means someone who uses weapons in warfare. Reframed as simply someone brave, there is great bravery in gentleness (not "stupid gentle"; sometimes we must defend ourselves) and in looking at our own minds. Within the Shambhala context such words take on unconventional meanings that open up gradually, like a book whose pages unfold, so we should keep our minds open and let the notions flower.
+📖 <strong>In the books:</strong> GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"; SP ch.19 "The Universal Monarch"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>I would like to make it clear that a warrior, in this case, is not someone who wages war. A Shambhala warrior is someone who is brave enough not to give in to the aggression and contradictions that exist in society. A warrior, or pawo in Tibetan, is a brave person, a genuine person who is able to step out of the cocoon—that very comfortable cocoon that he or she is trying to sleep in.</p><p class="src">— <em>GES Prologue "The Kingdom, the Cocoon, the Great Eastern Sun"</em> ¶379</p>
+<p>The challenge of warriorship is to step out of the cocoon, to step out into space, by being brave and at the same time gentle.</p><p class="src">— <em>SP ch.19 "The Universal Monarch"</em> ¶201</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:41:26</span> Introducing the text: "The Education of the Warrior"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher introduces the passage printed in the Sacred Path of the Warrior book, where it opens Part Two, "Sacredness: The Warrior's World"; Trungpa Rinpoche explains the same passage in <em>Smile at Fear</em>, ch.7 "The Education of the Warrior". The text is put on screen for the group to read together.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; <em>Smile at Fear</em> ch.7 "The Education of the Warrior" (in Collected Works Vol. 9)
+<strong>CTR's words:</strong> No direct CTR text found for this logistics/introduction (the passage itself follows).</p></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:44:00</span> Reading of the passage on the fearful mind</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher reads the whole passage aloud, which traces the fearful mind from the cradle of loving-kindness through joy, the self-existing playground, the archery range of the warriors, and human society, to seeing the Great Eastern Sun. The group will take it in small bits and discuss each.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>That mind of fearfulness Should be put in the cradle of loving-kindness And suckled with the profound and brilliant milk of eternal doubtlessness. In the cool shade of fearlessness, Fan it with the fan of joy and happiness. When it grows older, With various displays of phenomena, Lead it to the self-existing playground. When it grows older still, In order to promote the primordial confidence, Lead it to the archery range of the warriors.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+<p>Then the fearful mind Can change into the warrior’s mind, And that eternally youthful confidence Can expand into space without beginning or end. At that point it sees the Great Eastern Sun.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:45:58</span> "The mind of fearfulness in the cradle of loving-kindness"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Participants read the first line and discuss it. The cradle suggests sangha, a place of care among fellow travelers, and the tenderness we show babies. A participant notes that their habit is to meet fearfulness with aggression or self-judgment, the opposite of this line, and the teacher affirms this as the "slightly unconventional" quality of the view. Others link it to fearlessness as opening to fear rather than its absence, to the body's rib cage cradling the vulnerable heart, and to the fact that all warriors begin as babies in cradles. The teacher stresses that we carry the cradle with us and must also cradle our older, anxious parts.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.4 "Fear and Fearlessness"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Acknowledging fear is not a cause for depression or discouragement. Because we possess such fear, we also are potentially entitled to experience fearlessness. True fearlessness is not the reduction of fear; but going beyond fear.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶51</p>
+<p>The essence of cowardice is not acknowledging the reality of fear.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶51</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">01:56:03</span> "Milk of eternal doubtlessness"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The line is read and the group asks whether doubtlessness is nurturing, whether doubt is removed or gone beyond, and how self-doubt grows with age and physical limits. Ideas offered: doubtlessness as confidence in basic goodness; the eternal doubtlessness modifies the milk, not the self, and is eternally accessible though not always present; infants are "swaddled in doubtlessness." Another participant raises the Buddha's earth-touching gesture answering Mara's challenge as an image of not having to talk oneself into it. The teacher notes basic goodness is the capacity for that openness, which no bodily decline changes, and that symbols open gradually.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.5 "Synchronizing Mind and Body"; GES ch.1 "A Dot in the Open Sky"; SP ch.9 "Celebrating the Journey"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Gentleness, in this sense, comes from experiencing the absence of doubt, or doubtlessness. Being without doubt has nothing to do with accepting the validity of a philosophy or concept.</p><p class="src">— <em>SP ch.5 "Synchronizing Mind and Body"</em> ¶57</p>
+<p>Absence of doubt is trusting in the heart, trusting yourself. Being without doubt means that you have connected with yourself, that you have experienced mind and body being synchronized together.</p><p class="src">— <em>SP ch.5 "Synchronizing Mind and Body"</em> ¶57</p>
+<p>Freedom from doubt is connected with humor, joy, and celebration. You trust the situation; therefore, you can afford to smile.</p><p class="src">— <em>GES ch.1 "A Dot in the Open Sky"</em> ¶399</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:06:02</span> "In the cool shade of fearlessness, fan it with the fan of joy and happiness"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Participants read the two lines and explore them through images: shade as refuge rooted in fearlessness, the contrast with the heat of panic, and fanning only meaning something when there is heat to fan away. They debate whether joy and happiness require the shade of fearlessness or are separate, whether the "it" is the fearful mind, and whether the cradle of loving-kindness naturally fans up joy.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.4 "Fear and Fearlessness"; GES ch.7 "Sacredness: Natural Law and Order"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Fearlessness alternates with fear, and both of those are kindling for the fire. You are nervous, speedy, fearful. Then that brings another area of steadiness, solidity, and calm. So fear and fearlessness constantly alternate.</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶487</p>
+<p>If we look into our fear, if we look beneath its veneer, the first thing we find is sadness, beneath the nervousness. Nervousness is cranking up, vibrating, all the time. When we slow down, when we relax with our fear, we find sadness, which is calm and gentle.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:18:24</span> "Lead it to the self-existing playground"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Three lines are read about the mind growing older amid various displays of phenomena. The teacher reminds the group that "it" is still the mind of fearfulness, and a participant reads the playground as returning to meditative space, sitting with where one is rather than dealing with all the phenomena, so sitting practice is a good idea. Another participant begins to add a comment as the chunk ends.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.20 "Authentic Presence"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Fearfulness and cowardice bring depression. Not having a sense of delight brings no room to be inscrutable.</p><p class="src">— <em>SP ch.20 "Authentic Presence"</em> ¶221</p>
+</blockquote></div></details>
+<h3>Part 4 (02:21:00 – 03:07:11)</h3><details class="sec plain"><summary><span class="label"><span class="ts">02:21:00</span> Fearfulness as the ground of practice; the "self-existing playground"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A participant reads the poem's third stanza as describing how the fearful mind matures along with our practice. The "displays of phenomena" are the immediacy of experience, a self-existing playground that is eternally accessible. The teacher and others appreciate the phrase "eternally accessible immediacy." The playground is read as both the outer phenomena the senses meet and the thought activity that arises on the cushion, so it is both inside and outside. The teacher cautions against running ahead of the text, since the group is not yet at "awakened heart."
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; GES ch.7 "Sacredness: Natural Law and Order"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>When it grows older, With various displays of phenomena, Lead it to the self-existing playground.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+<p>That mind of fearfulness Should be put in the cradle of loving-kindness And suckled with the profound and brilliant milk of eternal doubtlessness.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+<p>In every ordinary life situation as well as in extraordinary life situations, there is always feedback from the environment as well as from your existence. This brings real fearlessness.</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶487</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:27:44</span> Sense perceptions as the vehicle</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher offers an analogy: the self-existing displays of phenomena are our sensory perceptions, the vehicle through which we first meet the world. In meeting it we begin to see the world as having its own being and logic, a self-existing playground. A participant is reminded of language in the Sadhana of Mahamudra, and the teacher adds that the elements and all beings partake of a self-existing nature.
+📖 <strong>In the books:</strong> SP ch.4 "Fear and Fearlessness"; SP ch.5 "Synchronizing Mind and Body"; SP ch.10 "Letting Go"; Collected Works Vol. 6 (Sadhana of Mahamudra)
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>When tenderness evolves in that direction, then you can truly appreciate the world around you. Sense perceptions become very interesting things.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+<p>Rather, it is a basic principle of how to be a human being and how to use your sense perceptions, your mind, and your body together.</p><p class="src">— <em>SP ch.5 "Synchronizing Mind and Body"</em> ¶57</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:31:39</span> Line three: "archery range of the warriors" and primordial confidence</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The next lines are read several times: to promote the primordial confidence, lead it to the archery range of the warriors. A participant connects this to Rinpoche's archery practice, where the aim is not to hit the target. They read it as acting without clinging to a result, which promotes primordial confidence.
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"; SP ch.1 "Creating an Enlightened Society"; GES ch.8 "The King of Basic Goodness"; SP ch.5 "Synchronizing Mind and Body"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>When it grows older still, In order to promote the primordial confidence, Lead it to the archery range of the warriors.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:33:30</span> Primordial confidence as basic goodness; the bow and arrow</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A participant equates primordial confidence with basic goodness and recalls the bow-and-arrow image from the book. The group searches for it, unsure whether the bow is skillful means or fearlessness. A participant finds and reads the passage on the arrow of intellect and the bow of action manifesting as trust and inquisitiveness. They identify the chapter as "Celebrating the Journey."
+📖 <strong>In the books:</strong> SP ch.9 "Celebrating the Journey"; SP ch.1 "Creating an Enlightened Society"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Similarly, the warrior is always inquisitive, interested in the world around him. But he also needs skillful action in order to apply his intelligence. When the arrow of intellect is joined with the bow of skillful means, then the warrior is never tempted by the seductions of the setting-sun world.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶89</p>
+<p>When you learn to overcome temptation, then the arrow of intellect and the bow of action can manifest as trust in your world. This brings further inquisitiveness. You want to look into every situation and examine it, so that you won’t be fooling yourself by relying on belief alone. Instead, you want to make a personal discovery of reality, through your own intelligence and ability.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶91</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:36:09</span> Trust: every action brings a result</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Participants discuss the line that shooting the arrow brings either a hit or a miss, and trust means knowing there will be a message. One notes a wish for good results can cause hesitation to act at all. Others say the point is to take the action and experience the result rather than judge it as right or wrong. One adds that results that go against expectations are often where learning happens.
+📖 <strong>In the books:</strong> SP ch.9 "Celebrating the Journey"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>The sense of trust is that, when you apply your inquisitiveness, when you look into a situation, you know that you will get a definite response. If you take steps to accomplish something, that action will have a result—either failure or success. When you shoot your arrow, either it will hit the target or it will miss. Trust is knowing that there will be a message.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶91</p>
+<p>Success and failure are your journey.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶95</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:39:28</span> Reality opens up; change blindness</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A participant says that when things go differently than expected, the world is seen most clearly because assumptions are exceeded and reality "opens up." Another brings up change blindness, in which we miss changes around us because our thoughts are elsewhere, and the invisible-gorilla experiment. The teacher adds that habitual, conceptual thinking gets cracked open and "the light gets in." Confirming one's bias is not a way to open up.
+📖 <strong>In the books:</strong> SP ch.1 "Creating an Enlightened Society"; SP ch.9 "Celebrating the Journey"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>We experience glimpses of goodness all the time, but we often fail to acknowledge them. When we see a bright color, we are witnessing our own inherent goodness. When we hear a beautiful sound, we are hearing our own basic goodness.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶29</p>
+<p>When you trust in those messages, the reflections of the phenomenal world, the world begins to seem like a bank, or reservoir, of richness. You feel that you are living in a rich world, one that never runs out of messages.</p><p class="src">— <em>SP ch.9 "Celebrating the Journey"</em> ¶91</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:42:12</span> Gentle warriors on the archery range</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> A participant ties in an earlier point about bravery to be gentle: being gentle with actions and outcomes seems to promote primordial confidence. Another agrees that one goes out to practice bravery, gentleness and open-heartedness, with the confidence that the world will give a yes-or-no response.
+📖 <strong>In the books:</strong> SP ch.4 "Fear and Fearlessness"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>So you no longer need to feel shy or embarrassed about being gentle. In fact, your softness begins to become passionate.</p><p class="src">— <em>SP ch.4 "Fear and Fearlessness"</em> ¶53</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:43:23</span> Line four: "society ... which possesses beauty and dignity"</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher introduces the fourth line and several people read it. The original wording is "society of men," and the group discusses alternatives. One suggests "the society of humankind" for rhythm. A participant explains the 1960s-70s origin of the language and the difficulty some have with words like "warrior."
+📖 <strong>In the books:</strong> SP ch.10 "Letting Go"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>When it grows older still, To awaken primordial self-nature, Let it see the society of men Which possesses beauty and dignity.</p><p class="src">— <em>SP ch.10 "Letting Go"</em> ¶113</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:47:43</span> Does society possess beauty and dignity? Small groups, and the primordial self-nature</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Participants note that society at large often seems far from beautiful and dignified, while small gatherings and communities show real beauty and dignity. Another voices struggle with the prejudice and tribalism seen in societies. The teacher points out that this small-scale beauty is the primordial self-nature, and that something about human society is meant to awaken it. The topic is set aside for next week.
+📖 <strong>In the books:</strong> GES ch.2 "Working with Early Morning Depression"; SP ch.10 "Letting Go"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>That is not the idea of enlightened society. Rather, we’re saying that you have yourself, your existence as a human being, and you can work with what you have.</p><p class="src">— <em>GES ch.2 "Working with Early Morning Depression"</em> ¶407</p>
+<p>Enlightened society comes from the kitchen sink level, from the bedroom level.</p><p class="src">— <em>GES ch.2 "Working with Early Morning Depression"</em> ¶411</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:52:28</span> Wrap-up: the repeated "it," fearfulness, and the warrior as the brave one</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> The teacher notes the pronoun "it" repeats through the poem. Fearfulness is not lost right away; meditation lets us work with it differently as we go along. The opposite of fearfulness is bravery, and the simplest definition of warrior is a brave person, the Tibetan "pawo," also used of bodhisattvas. The assignment is to notice how the chosen meditation technique works and to try out the various tools.
+📖 <strong>In the books:</strong> SP ch.1 "Creating an Enlightened Society"; GES ch.6 "Mirrorlike Wisdom"; GES ch.7 "Sacredness: Natural Law and Order"
+<strong>CTR's words:</strong></p>
+<blockquote>
+<p>Fearlessness alternates with fear, and both of those are kindling for the fire.</p><p class="src">— <em>GES ch.7 "Sacredness: Natural Law and Order"</em> ¶487</p>
+<p>Here the word warrior is taken from the Tibetan pawo, which literally means “one who is brave.” Warriorship in this context is the tradition of human bravery, or the tradition of fearlessness.</p><p class="src">— <em>SP ch.1 "Creating an Enlightened Society"</em> ¶27</p>
+<p>The Tibetan word for a warrior is pawo, which means “a brave person.”</p><p class="src">— <em>GES ch.6 "Mirrorlike Wisdom"</em> ¶467</p>
+</blockquote></div></details><details class="sec plain"><summary><span class="label"><span class="ts">02:55:29</span> Closing and after-class</span></summary><div class="body"><p><strong>Teacher/discussion:</strong> Housekeeping, closing gong and goodbyes, and after-class chat. The week's homework is meditation practice. No teaching content.
+<strong>CTR's words:</strong>
+Closing, no CTR text.</p></div></details>
+</details>
+</section>
+<p><button type="button" id="reset">Reset my progress</button></p>
+<footer>Study notes made from a machine transcript of the class, so a few details may be slightly off. When in doubt, the recording and your teacher are the authority.</footer>
+</main>
+<script>
+(function () {
+  var KEY = "ges1-read-v1";
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var read = store.get(KEY, {});
+  var secs = Array.prototype.slice.call(document.querySelectorAll("#reading details.sec"));
+  var total = secs.length;
+
+  function paint() {
+    var n = 0;
+    secs.forEach(function (d) {
+      var on = !!read[d.dataset.id];
+      d.classList.toggle("read", on);
+      var b = d.querySelector(".mark");
+      b.textContent = on ? "Read ✓ (tap to undo)" : "Mark as read";
+      b.setAttribute("aria-pressed", on);
+      if (on) n++;
+    });
+    document.querySelector(".fill").style.width = (100 * n / total) + "%";
+    document.querySelector(".progress .txt").textContent = n + " of " + total + " sections read";
+    document.querySelectorAll(".pcount").forEach(function (el) {
+      var mine = secs.filter(function (d) { return d.dataset.id.indexOf(el.dataset.part + "-") === 0; });
+      var done = mine.filter(function (d) { return read[d.dataset.id]; }).length;
+      el.textContent = done + "/" + mine.length + " read";
+      el.classList.toggle("full", done === mine.length);
+    });
+  }
+
+  secs.forEach(function (d, i) {
+    d.querySelector(".mark").addEventListener("click", function () {
+      var id = d.dataset.id;
+      if (read[id]) { delete read[id]; }
+      else {
+        read[id] = 1;
+        d.open = false;
+        var next = secs[i + 1];
+        if (next && !read[next.dataset.id]) {
+          next.open = true;
+          next.querySelector("summary").scrollIntoView({ behavior: "smooth", block: "start" });
+          next.querySelector("summary").focus({ preventScroll: true });
+        }
+      }
+      store.set(KEY, read); paint();
+    });
+  });
+
+  document.getElementById("expand").onclick = function () { secs.forEach(function (d) { d.open = true; }); };
+  document.getElementById("collapse").onclick = function () { secs.forEach(function (d) { d.open = false; }); };
+  document.getElementById("reset").onclick = function () {
+    if (confirm("Clear all your 'read' marks?")) { read = {}; store.set(KEY, read); paint(); }
+  };
+
+  var fs = store.get("ges1-fs", 18);
+  function setFs(v) { fs = Math.max(14, Math.min(26, v)); document.documentElement.style.setProperty("--fs", fs + "px"); store.set("ges1-fs", fs); }
+  setFs(fs);
+  document.getElementById("smaller").onclick = function () { setFs(fs - 2); };
+  document.getElementById("bigger").onclick = function () { setFs(fs + 2); };
+
+  var theme = store.get("ges1-theme", null);
+  if (theme) document.documentElement.dataset.theme = theme;
+  document.getElementById("theme").onclick = function () {
+    var dark = document.documentElement.dataset.theme
+      ? document.documentElement.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    theme = dark ? "light" : "dark";
+    document.documentElement.dataset.theme = theme; store.set("ges1-theme", theme);
+  };
+
+  // Open the first unread section on arrival
+  var first = secs.filter(function (d) { return !read[d.dataset.id]; })[0];
+  paint();
+  if (first && Object.keys(read).length) first.open = true;
+})();
+</script>
+</body>
+</html>
